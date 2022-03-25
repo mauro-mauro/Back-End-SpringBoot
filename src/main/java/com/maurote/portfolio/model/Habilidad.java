@@ -9,10 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter @Setter
 @Entity
 public class Habilidad {
     @Id
@@ -29,6 +26,30 @@ public class Habilidad {
     public Habilidad(long id, String plataforma) {
         this.id = id;
         this.plataforma = plataforma;
+    }
+
+    public long getId() {
+        return this.id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getPlataforma() {
+        return this.plataforma;
+    }
+
+    public void setPlataforma(String plataforma) {
+        this.plataforma = plataforma;
+    }
+
+    public List<ItemHabilidad> getListaHabilidad() {
+        return this.listaHabilidad;
+    }
+
+    public void setListaHabilidad(List<ItemHabilidad> listaHabilidad) {
+        this.listaHabilidad = listaHabilidad;
     }
     
     

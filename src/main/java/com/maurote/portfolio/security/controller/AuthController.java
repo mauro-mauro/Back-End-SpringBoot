@@ -4,8 +4,6 @@ import java.text.ParseException;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.validation.Valid;
-
 import com.maurote.portfolio.model.Mensaje;
 import com.maurote.portfolio.security.dto.JwtDto;
 import com.maurote.portfolio.security.dto.LoginUsuario;
@@ -36,7 +34,7 @@ import io.jsonwebtoken.Jwt;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin
+@CrossOrigin(origins = "*")
 public class AuthController {
  @Autowired
  PasswordEncoder passwordEncoder;  

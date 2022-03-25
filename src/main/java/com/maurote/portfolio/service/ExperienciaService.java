@@ -3,6 +3,7 @@ package com.maurote.portfolio.service;
 import com.maurote.portfolio.model.Experiencia;
 import com.maurote.portfolio.repository.ExperienciaRepository;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,5 +27,15 @@ public class ExperienciaService implements IExperienciaService{
     @Override
     public void borrarExperiencia(Long id) {
         expRepo.deleteById(id);
+    }
+
+    @Override
+    public boolean existePorId(Long id) {
+        return expRepo.existsById(id);
+    }
+
+    @Override
+    public Optional<Experiencia> getOne(Long id) {
+        return expRepo.findById(id);
     }
 }

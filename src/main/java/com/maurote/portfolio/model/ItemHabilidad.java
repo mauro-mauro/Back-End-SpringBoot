@@ -9,10 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter @Setter
 @Entity
 public class ItemHabilidad {
     @Id
@@ -33,6 +30,38 @@ public class ItemHabilidad {
         this.id = id;
         this.habilidad = habilidad;
         this.porcentaje = porcentaje;
+    }
+
+    public long getId() {
+        return this.id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getHabilidad() {
+        return this.habilidad;
+    }
+
+    public void setHabilidad(String habilidad) {
+        this.habilidad = habilidad;
+    }
+
+    public int getPorcentaje() {
+        return this.porcentaje;
+    }
+
+    public void setPorcentaje(int porcentaje) {
+        this.porcentaje = porcentaje;
+    }
+
+    public Habilidad getHab() {
+        return this.hab;
+    }
+
+    public void setHab(Habilidad hab) {
+        this.hab = hab;
     }
 
     

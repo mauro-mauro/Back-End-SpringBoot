@@ -1,6 +1,6 @@
 package com.maurote.portfolio.service;
 
-import com.maurote.portfolio.model.DatoPersonal;
+import com.maurote.portfolio.entity.DatoPersonal;
 import com.maurote.portfolio.repository.DatoPersonalRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

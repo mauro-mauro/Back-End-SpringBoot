@@ -1,6 +1,6 @@
 package com.maurote.portfolio.service;
 
-import com.maurote.portfolio.model.Habilidad;
+import com.maurote.portfolio.entity.Habilidad;
 import com.maurote.portfolio.repository.HabilidadRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

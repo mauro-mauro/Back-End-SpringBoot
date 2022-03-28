@@ -1,6 +1,6 @@
 package com.maurote.portfolio.service;
 
-import com.maurote.portfolio.model.Educacion;
+import com.maurote.portfolio.entity.Educacion;
 import com.maurote.portfolio.repository.EducacionRepository;
 import java.util.List;
 import java.util.Optional;

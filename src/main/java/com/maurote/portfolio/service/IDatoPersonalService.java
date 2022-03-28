@@ -1,7 +1,8 @@
 package com.maurote.portfolio.service;
 
-import com.maurote.portfolio.model.DatoPersonal;
 import java.util.List;
+
+import com.maurote.portfolio.entity.DatoPersonal;
 
 public interface IDatoPersonalService {
     public List<DatoPersonal> listarDatoPersonal();

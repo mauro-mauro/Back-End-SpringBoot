@@ -1,4 +1,4 @@
-package com.maurote.portfolio.model;
+package com.maurote.portfolio.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.CascadeType;

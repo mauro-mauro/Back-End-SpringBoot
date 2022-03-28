@@ -1,4 +1,4 @@
-package com.maurote.portfolio.model;
+package com.maurote.portfolio.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -6,25 +6,27 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Educacion {
+public class Proyecto {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
     private String titulo;
-    private String lugar;
+    private String programa;
     private String url;
-    private String periodo;
-    private String texto; 
-    
-    public Educacion() {
+    private String repositorioGit;
+    private String anio;
+    private String texto;
+
+    public Proyecto() {
     }
-    
-    public Educacion(long id, String titulo, String lugar, String url, String periodo, String texto) {
+
+    public Proyecto(long id, String titulo, String programa, String url, String repositorioGit, String anio, String texto) {
         this.id = id;
         this.titulo = titulo;
-        this.lugar = lugar;
+        this.programa = programa;
         this.url = url;
-        this.periodo = periodo;
+        this.repositorioGit = repositorioGit;
+        this.anio = anio;
         this.texto = texto;
     }
 
@@ -44,12 +46,12 @@ public class Educacion {
         this.titulo = titulo;
     }
 
-    public String getLugar() {
-        return this.lugar;
+    public String getPrograma() {
+        return this.programa;
     }
 
-    public void setLugar(String lugar) {
-        this.lugar = lugar;
+    public void setPrograma(String programa) {
+        this.programa = programa;
     }
 
     public String getUrl() {
@@ -60,12 +62,20 @@ public class Educacion {
         this.url = url;
     }
 
-    public String getPeriodo() {
-        return this.periodo;
+    public String getRepositorioGit() {
+        return this.repositorioGit;
     }
 
-    public void setPeriodo(String periodo) {
-        this.periodo = periodo;
+    public void setRepositorioGit(String repositorioGit) {
+        this.repositorioGit = repositorioGit;
+    }
+
+    public String getAnio() {
+        return this.anio;
+    }
+
+    public void setAnio(String anio) {
+        this.anio = anio;
     }
 
     public String getTexto() {
@@ -75,5 +85,6 @@ public class Educacion {
     public void setTexto(String texto) {
         this.texto = texto;
     }
-
+    
+    
 }

@@ -1,7 +1,8 @@
 package com.maurote.portfolio.service;
 
-import com.maurote.portfolio.model.ItemHabilidad;
 import java.util.List;
+
+import com.maurote.portfolio.entity.ItemHabilidad;
 
 public interface IItemHabilidadService {
     public List<ItemHabilidad> listarItemHabilidad();

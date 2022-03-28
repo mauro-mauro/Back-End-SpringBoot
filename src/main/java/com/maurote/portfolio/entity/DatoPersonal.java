@@ -1,4 +1,4 @@
-package com.maurote.portfolio.model;
+package com.maurote.portfolio.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

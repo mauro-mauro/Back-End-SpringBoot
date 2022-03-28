@@ -1,8 +1,9 @@
 package com.maurote.portfolio.service;
 
-import com.maurote.portfolio.model.Educacion;
 import java.util.List;
 import java.util.Optional;
+
+import com.maurote.portfolio.entity.Educacion;
 
 public interface IEducacionService {
     public List<Educacion> listarEducacion();

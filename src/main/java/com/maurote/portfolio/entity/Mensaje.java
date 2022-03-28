@@ -1,4 +1,4 @@
-package com.maurote.portfolio.model;
+package com.maurote.portfolio.entity;
 
 public class Mensaje {
     private String mensaje;

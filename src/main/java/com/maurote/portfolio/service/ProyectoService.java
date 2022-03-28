@@ -1,6 +1,6 @@
 package com.maurote.portfolio.service;
 
-import com.maurote.portfolio.model.Proyecto;
+import com.maurote.portfolio.entity.Proyecto;
 import com.maurote.portfolio.repository.ProyectoRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

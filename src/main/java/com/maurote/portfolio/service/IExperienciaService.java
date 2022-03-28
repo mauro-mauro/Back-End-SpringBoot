@@ -1,8 +1,9 @@
 package com.maurote.portfolio.service;
 
-import com.maurote.portfolio.model.Experiencia;
 import java.util.List;
 import java.util.Optional;
+
+import com.maurote.portfolio.entity.Experiencia;
 
 public interface IExperienciaService {
     public List<Experiencia> listarExperiencia();

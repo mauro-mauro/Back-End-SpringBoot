@@ -1,13 +1,13 @@
 package com.maurote.portfolio.controller;
 
-import com.maurote.portfolio.model.DatoPersonal;
-import com.maurote.portfolio.model.Educacion;
-import com.maurote.portfolio.model.EducacionDto;
-import com.maurote.portfolio.model.Experiencia;
-import com.maurote.portfolio.model.ExperienciaDto;
-import com.maurote.portfolio.model.Habilidad;
-import com.maurote.portfolio.model.Mensaje;
-import com.maurote.portfolio.model.Proyecto;
+import com.maurote.portfolio.entity.DatoPersonal;
+import com.maurote.portfolio.entity.Educacion;
+import com.maurote.portfolio.entity.Experiencia;
+import com.maurote.portfolio.entity.Habilidad;
+import com.maurote.portfolio.entity.Mensaje;
+import com.maurote.portfolio.entity.Proyecto;
+import com.maurote.portfolio.models.EducacionDto;
+import com.maurote.portfolio.models.ExperienciaDto;
 import com.maurote.portfolio.service.IDatoPersonalService;
 import com.maurote.portfolio.service.IEducacionService;
 import com.maurote.portfolio.service.IExperienciaService;

@@ -1,4 +1,4 @@
-package com.maurote.portfolio.model;
+package com.maurote.portfolio.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -6,7 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Experiencia {
+public class Educacion {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
@@ -16,10 +16,10 @@ public class Experiencia {
     private String periodo;
     private String texto; 
     
-    public Experiencia() {
+    public Educacion() {
     }
     
-    public Experiencia(long id, String titulo, String lugar, String url, String periodo, String texto) {
+    public Educacion(long id, String titulo, String lugar, String url, String periodo, String texto) {
         this.id = id;
         this.titulo = titulo;
         this.lugar = lugar;
@@ -75,7 +75,5 @@ public class Experiencia {
     public void setTexto(String texto) {
         this.texto = texto;
     }
-    
 
-    
 }

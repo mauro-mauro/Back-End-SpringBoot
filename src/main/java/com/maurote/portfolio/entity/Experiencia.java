@@ -1,4 +1,4 @@
-package com.maurote.portfolio.model;
+package com.maurote.portfolio.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -6,27 +6,25 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Proyecto {
+public class Experiencia {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
     private String titulo;
-    private String programa;
+    private String lugar;
     private String url;
-    private String repositorioGit;
-    private String anio;
-    private String texto;
-
-    public Proyecto() {
+    private String periodo;
+    private String texto; 
+    
+    public Experiencia() {
     }
-
-    public Proyecto(long id, String titulo, String programa, String url, String repositorioGit, String anio, String texto) {
+    
+    public Experiencia(long id, String titulo, String lugar, String url, String periodo, String texto) {
         this.id = id;
         this.titulo = titulo;
-        this.programa = programa;
+        this.lugar = lugar;
         this.url = url;
-        this.repositorioGit = repositorioGit;
-        this.anio = anio;
+        this.periodo = periodo;
         this.texto = texto;
     }
 
@@ -46,12 +44,12 @@ public class Proyecto {
         this.titulo = titulo;
     }
 
-    public String getPrograma() {
-        return this.programa;
+    public String getLugar() {
+        return this.lugar;
     }
 
-    public void setPrograma(String programa) {
-        this.programa = programa;
+    public void setLugar(String lugar) {
+        this.lugar = lugar;
     }
 
     public String getUrl() {
@@ -62,20 +60,12 @@ public class Proyecto {
         this.url = url;
     }
 
-    public String getRepositorioGit() {
-        return this.repositorioGit;
+    public String getPeriodo() {
+        return this.periodo;
     }
 
-    public void setRepositorioGit(String repositorioGit) {
-        this.repositorioGit = repositorioGit;
-    }
-
-    public String getAnio() {
-        return this.anio;
-    }
-
-    public void setAnio(String anio) {
-        this.anio = anio;
+    public void setPeriodo(String periodo) {
+        this.periodo = periodo;
     }
 
     public String getTexto() {
@@ -86,5 +76,6 @@ public class Proyecto {
         this.texto = texto;
     }
     
+
     
 }

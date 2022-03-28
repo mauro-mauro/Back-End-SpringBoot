@@ -1,7 +1,8 @@
 package com.maurote.portfolio.service;
 
-import com.maurote.portfolio.model.Habilidad;
 import java.util.List;
+
+import com.maurote.portfolio.entity.Habilidad;
 
 public interface IHabilidadService {
     public List<Habilidad> listarHabilidad();

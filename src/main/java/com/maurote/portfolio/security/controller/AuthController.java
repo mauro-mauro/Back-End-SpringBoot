@@ -4,7 +4,7 @@ import java.text.ParseException;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.maurote.portfolio.model.Mensaje;
+import com.maurote.portfolio.entity.Mensaje;
 import com.maurote.portfolio.security.dto.JwtDto;
 import com.maurote.portfolio.security.dto.LoginUsuario;
 import com.maurote.portfolio.security.dto.NuevoUsuario;

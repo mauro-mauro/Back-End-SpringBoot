@@ -1,8 +1,8 @@
-package com.maurote.portfolio.model;
+package com.maurote.portfolio.models;
 
 import javax.validation.constraints.NotBlank;
 
-public class ExperienciaDto {
+public class EducacionDto {
     @NotBlank
     private String titulo;
     @NotBlank
@@ -12,10 +12,10 @@ public class ExperienciaDto {
     private String periodo;
     private String texto; 
 
-    public ExperienciaDto() {
+    public EducacionDto() {
     }
     
-    public ExperienciaDto(@NotBlank String titulo, @NotBlank String lugar, 
+    public EducacionDto(@NotBlank String titulo, @NotBlank String lugar, 
             String url, @NotBlank String periodo, String texto) {
         this.titulo = titulo;
         this.lugar = lugar;
@@ -63,7 +63,4 @@ public class ExperienciaDto {
     public void setTexto(String texto) {
         this.texto = texto;
     }
-    
-    
-    
 }

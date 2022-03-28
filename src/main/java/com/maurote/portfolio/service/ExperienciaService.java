@@ -1,6 +1,6 @@
 package com.maurote.portfolio.service;
 
-import com.maurote.portfolio.model.Experiencia;
+import com.maurote.portfolio.entity.Experiencia;
 import com.maurote.portfolio.repository.ExperienciaRepository;
 import java.util.List;
 import java.util.Optional;

@@ -1,7 +1,8 @@
 package com.maurote.portfolio.service;
 
-import com.maurote.portfolio.model.Proyecto;
 import java.util.List;
+
+import com.maurote.portfolio.entity.Proyecto;
 
 public interface IProyectoService {
     public List<Proyecto> listarProyecto();

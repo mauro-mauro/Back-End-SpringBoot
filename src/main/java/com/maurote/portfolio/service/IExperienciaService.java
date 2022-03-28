@@ -7,7 +7,7 @@ import java.util.Optional;
 public interface IExperienciaService {
     public List<Experiencia> listarExperiencia();
     public void agregarExperiencia(Experiencia exp);
-    public boolean existePorId(Long id);
     public void borrarExperiencia(Long id);
+    public boolean existePorId(Long id);
     public Optional<Experiencia> getOne(Long id);
 }

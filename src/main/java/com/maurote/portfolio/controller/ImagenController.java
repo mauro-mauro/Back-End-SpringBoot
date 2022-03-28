@@ -53,26 +53,23 @@ public class ImagenController {
     @GetMapping("/ver")
     public ResponseEntity<?> getImagen(@RequestParam String nombre) throws IOException {
 
-        // String extension = nombre.split("\\.")[nombre.split("\\.").length - 1].toLowerCase();
-        // MediaType mediaType;
-
-        // if (extension.equals("jpg") || extension.equals("jpeg")) {
-        //     mediaType = MediaType.IMAGE_JPEG;
-        // } else if (extension.equals("gif")) {
-        //     mediaType = MediaType.IMAGE_GIF;
-        // } else if (extension.equals("png")) {
-        //     mediaType = MediaType.IMAGE_PNG;
-        // } else {
-        //     return new ResponseEntity<Object>("Tipo imagen no permitida", HttpStatus.BAD_REQUEST);
-        // }
-
+        String extension = nombre.split("\\.")[nombre.split("\\.").length - 1].toLowerCase();
         InputStreamSource imgFile = new ClassPathResource("files//" + nombre);
 
-        return new ResponseEntity<Object>(imgFile, HttpStatus.OK);
+        if (extension.equals("jpg") || extension.equals("jpeg")) {
+            return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG)
+                    .body(new InputStreamResource(imgFile.getInputStream()));
+        } else if (extension.equals("gif")) {
+            return ResponseEntity.ok().contentType(MediaType.IMAGE_GIF)
+                    .body(new InputStreamResource(imgFile.getInputStream()));
+        } else if (extension.equals("png")) {
+            return ResponseEntity.ok().contentType(MediaType.IMAGE_PNG)
+                    .body(new InputStreamResource(imgFile.getInputStream()));
+        } else if (extension.equals("svg")) {
+            return ResponseEntity.ok().contentType(MediaType.MULTIPART_MIXED)
+                    .body(new InputStreamResource(imgFile.getInputStream()));
+        }
 
-        // return ResponseEntity
-        //         .ok()
-        //         .contentType(mediaType)
-        //         .body(new InputStreamResource(imgFile.getInputStream()));
+        return new ResponseEntity<Object>(imgFile, HttpStatus.OK);
     }
 }

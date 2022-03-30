@@ -1,7 +1,8 @@
 package com.maurote.portfolio.service;
 
 import com.maurote.portfolio.entity.ItemHabilidad;
-import com.maurote.portfolio.repository.HabilidadRepository;
+import com.maurote.portfolio.repository.ItemHabilidadRepository;
+
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,21 +11,21 @@ import org.springframework.stereotype.Service;
 public class ItemHabilidadService implements IItemHabilidadService {
 
     @Autowired
-    private HabilidadRepository habRepo;
-    
+    private ItemHabilidadRepository itemHabRepo;
+
     @Override
     public List<ItemHabilidad> listarItemHabilidad() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return itemHabRepo.findAll();
     }
 
     @Override
     public void agregarItemHabilidad(ItemHabilidad itemHab) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        itemHabRepo.save(itemHab);
     }
 
     @Override
     public void borrarItemHabilidad(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        itemHabRepo.deleteById(id);
     }
-    
+
 }

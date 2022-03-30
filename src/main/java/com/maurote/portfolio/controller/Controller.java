@@ -4,14 +4,17 @@ import com.maurote.portfolio.entity.DatoPersonal;
 import com.maurote.portfolio.entity.Educacion;
 import com.maurote.portfolio.entity.Experiencia;
 import com.maurote.portfolio.entity.Habilidad;
+import com.maurote.portfolio.entity.ItemHabilidad;
 import com.maurote.portfolio.entity.Mensaje;
 import com.maurote.portfolio.entity.Proyecto;
 import com.maurote.portfolio.models.EducacionDto;
 import com.maurote.portfolio.models.ExperienciaDto;
+import com.maurote.portfolio.models.ItemHabilidadDto;
 import com.maurote.portfolio.service.IDatoPersonalService;
 import com.maurote.portfolio.service.IEducacionService;
 import com.maurote.portfolio.service.IExperienciaService;
 import com.maurote.portfolio.service.IHabilidadService;
+import com.maurote.portfolio.service.IItemHabilidadService;
 import com.maurote.portfolio.service.IProyectoService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +42,8 @@ public class Controller {
     private IHabilidadService habServ;
     @Autowired
     private IDatoPersonalService datoPerSer;
+    @Autowired
+    private IItemHabilidadService itemHabSer;
 
     // ---------------------Datos Personales-------------------------------
     @PostMapping("/dato-personal/nuevo")
@@ -168,5 +173,25 @@ public class Controller {
     @GetMapping("/habilidad/listar")
     public List<Habilidad> listarHabilidad() {
         return habServ.listarHabilidad();
+    }
+
+    // ---------------------Item Habilidad-------------------------------
+    @GetMapping("/item-habilidad/listar")
+    public List<ItemHabilidad> listarItemHabilidad() {
+        return itemHabSer.listarItemHabilidad();
+    }
+
+    @PostMapping("/item-habilidad/nuevo")
+    public void agregarItemHabilidad(@RequestBody ItemHabilidadDto itemHab) {
+        System.out.println("itemHab.getHab(): " + itemHab.getHab());
+        System.out.println("itemHab.getPorcentaje(): " + itemHab.getPorcentaje());
+        System.out.println("itemHab.getHab(): " + itemHab.getHab());
+
+        ItemHabilidad itemHabilidad = new ItemHabilidad();
+        itemHabilidad.setHab(itemHab.getHab());
+        itemHabilidad.setPorcentaje(itemHab.getPorcentaje());
+        itemHabilidad.setHabilidad(itemHab.getHabilidad());
+
+        itemHabSer.agregarItemHabilidad(itemHabilidad);
     }
 }

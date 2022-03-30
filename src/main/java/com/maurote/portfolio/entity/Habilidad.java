@@ -3,12 +3,7 @@ package com.maurote.portfolio.entity;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 @Entity
 public class Habilidad {
@@ -17,8 +12,8 @@ public class Habilidad {
     private long id;
     private String plataforma;
     
-    @OneToMany(mappedBy = "hab", cascade = {CascadeType.ALL})
-    public List<ItemHabilidad> listaHabilidad;
+    @OneToMany(mappedBy = "hab", cascade = {CascadeType.REFRESH}, fetch = FetchType.LAZY)
+    public Set<ItemHabilidad> listaHabilidad;
 
     public Habilidad() {
     }    
@@ -44,11 +39,11 @@ public class Habilidad {
         this.plataforma = plataforma;
     }
 
-    public List<ItemHabilidad> getListaHabilidad() {
+    public Set<ItemHabilidad> getListaHabilidad() {
         return this.listaHabilidad;
     }
 
-    public void setListaHabilidad(List<ItemHabilidad> listaHabilidad) {
+    public void setListaHabilidad(Set<ItemHabilidad> listaHabilidad) {
         this.listaHabilidad = listaHabilidad;
     }
     

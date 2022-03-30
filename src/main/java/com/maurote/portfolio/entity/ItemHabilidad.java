@@ -1,14 +1,7 @@
 package com.maurote.portfolio.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 public class ItemHabilidad {
@@ -18,7 +11,8 @@ public class ItemHabilidad {
     private String habilidad;
     private int porcentaje;
     
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne
+    //(cascade = {CascadeType.REMOVE})
     @JoinColumn(name = "habilidad_id") 
     @JsonIgnore
     private Habilidad hab;
@@ -26,10 +20,11 @@ public class ItemHabilidad {
     public ItemHabilidad() {
     }
 
-    public ItemHabilidad(long id, String habilidad, int porcentaje) {
+    public ItemHabilidad(long id, String habilidad, int porcentaje, Habilidad hab) {
         this.id = id;
         this.habilidad = habilidad;
         this.porcentaje = porcentaje;
+        this.hab = hab;
     }
 
     public long getId() {

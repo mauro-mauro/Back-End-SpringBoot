@@ -65,10 +65,7 @@ public class ImagenController {
         } else if (extension.equals("png")) {
             return ResponseEntity.ok().contentType(MediaType.IMAGE_PNG)
                     .body(new InputStreamResource(imgFile.getInputStream()));
-        } else if (extension.equals("svg")) {
-            return ResponseEntity.ok().contentType(MediaType.MULTIPART_MIXED)
-                    .body(new InputStreamResource(imgFile.getInputStream()));
-        }
+        } 
 
         return new ResponseEntity<Object>(imgFile, HttpStatus.OK);
     }

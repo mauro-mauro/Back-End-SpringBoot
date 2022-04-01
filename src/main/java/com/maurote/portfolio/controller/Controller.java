@@ -175,6 +175,24 @@ public class Controller {
         return habServ.listarHabilidad();
     }
 
+    @GetMapping("/habilidad/buscar/{id}")
+    public ResponseEntity<Habilidad> obtenerHabilidadPorId(@PathVariable("id") Long id) {
+        if (!habServ.existePorId(id))
+            return new ResponseEntity(new Mensaje("no existe"), HttpStatus.NOT_FOUND);
+        Habilidad habilidad = habServ.getOne(id).get();
+        return new ResponseEntity(habilidad, HttpStatus.OK);
+    }
+
+    @GetMapping("/habilidad-plataformas/listar")
+    public List<Habilidad> listarHabilidadSimple() {
+        List<Habilidad> plataformas = habServ.listarHabilidad();
+        for(Habilidad temp : plataformas){
+            temp.setListaHabilidad(null);
+        }
+
+        return plataformas;
+    }
+
     // ---------------------Item Habilidad-------------------------------
     @GetMapping("/item-habilidad/listar")
     public List<ItemHabilidad> listarItemHabilidad() {

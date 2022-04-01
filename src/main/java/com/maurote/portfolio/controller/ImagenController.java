@@ -59,6 +59,7 @@ public class ImagenController {
         if (extension.equals("jpg") || extension.equals("jpeg")) {
             return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG)
                     .body(new InputStreamResource(imgFile.getInputStream()));
+            //return new ResponseEntity<Object>(imgFile, HttpStatus.OK);
         } else if (extension.equals("gif")) {
             return ResponseEntity.ok().contentType(MediaType.IMAGE_GIF)
                     .body(new InputStreamResource(imgFile.getInputStream()));

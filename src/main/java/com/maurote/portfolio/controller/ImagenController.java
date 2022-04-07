@@ -40,6 +40,9 @@ public class ImagenController {
         }
 
         try {
+            File files = new File("files");
+            if(!files.exists()) files.mkdirs();
+            
             imagenService.saveFile(file);
             return new ResponseEntity<Object>("Imagen subida correctamente", HttpStatus.OK);
         } catch (IOException e) {
@@ -52,8 +55,6 @@ public class ImagenController {
     // <InputStreamResource>
     @GetMapping("/ver")
     public ResponseEntity<?> getImagen(@RequestParam String nombre) throws IOException {
-        File files = new File("files");
-        if(!files.exists()) files.mkdirs();
 
         String extension = nombre.split("\\.")[nombre.split("\\.").length - 1].toLowerCase();
         InputStreamSource imgFile = new ClassPathResource("files//" + nombre);

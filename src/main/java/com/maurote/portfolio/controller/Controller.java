@@ -212,4 +212,23 @@ public class Controller {
 
         itemHabSer.agregarItemHabilidad(itemHabilidad);
     }
+
+    @PutMapping("/item-habilidad/editar/{id}")
+    public ResponseEntity<?> updateItemHabilidad(@PathVariable("id") long id, @RequestBody ItemHabilidadDto itemHabilidadDto) {
+        if (!itemHabSer.existePorId(id))
+            return new ResponseEntity(new Mensaje("no existe"), HttpStatus.NOT_FOUND);
+        ItemHabilidad itemHabilidad = itemHabSer.getOne(id).get();
+        itemHabilidad.setHabilidad(itemHabilidadDto.getHabilidad());
+        itemHabilidad.setPorcentaje(itemHabilidadDto.getPorcentaje());
+
+        itemHabSer.agregarItemHabilidad(itemHabilidad);
+
+        return new ResponseEntity(new Mensaje("experiencia actualizado"), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/item-habilidad/borrar/{id}")
+    public void borrarItemHabilidad(@PathVariable Long id) {
+        itemHabSer.borrarItemHabilidad(id);
+    }
+
 }

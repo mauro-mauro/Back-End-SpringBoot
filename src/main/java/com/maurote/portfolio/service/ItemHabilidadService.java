@@ -4,6 +4,8 @@ import com.maurote.portfolio.entity.ItemHabilidad;
 import com.maurote.portfolio.repository.ItemHabilidadRepository;
 
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +28,16 @@ public class ItemHabilidadService implements IItemHabilidadService {
     @Override
     public void borrarItemHabilidad(Long id) {
         itemHabRepo.deleteById(id);
+    }
+
+    @Override
+    public boolean existePorId(Long id) {
+        return itemHabRepo.existsById(id);
+    }
+
+    @Override
+    public Optional<ItemHabilidad> getOne(Long id) {
+        return itemHabRepo.findById(id);
     }
 
 }

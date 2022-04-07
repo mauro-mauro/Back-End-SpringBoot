@@ -62,7 +62,7 @@ public class ImagenController {
     public ResponseEntity<?> getImagen(@RequestParam String nombre) throws IOException {
 
         String extension = nombre.split("\\.")[nombre.split("\\.").length - 1].toLowerCase();
-        InputStreamSource imgFile = new ClassPathResource("files//" + nombre);
+        InputStreamSource imgFile = new ClassPathResource("files" + File.separator + nombre);
 
         if (extension.equals("jpg") || extension.equals("jpeg")) {
             return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG)

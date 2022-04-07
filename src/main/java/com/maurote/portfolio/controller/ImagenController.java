@@ -28,7 +28,7 @@ import java.awt.image.BufferedImage;
 
 @Controller
 @RequestMapping("/imagen")
-@CrossOrigin("*")
+@CrossOrigin("https://mauroperaltaportfolio.web.app")
 public class ImagenController {
     @Autowired
     private ImagenService imagenService;

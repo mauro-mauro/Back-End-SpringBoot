@@ -35,19 +35,24 @@ public class ImagenController {
 
     @PostMapping("/subir")
     public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile file) {
-        if (file.isEmpty()) {
+        if (file.isEmpty())
             return new ResponseEntity<Object>("Seleccionar un archivo", HttpStatus.OK);
-        }
 
-        try {
-            File files = new File("files");
-            if(!files.exists()) files.mkdirs();
-            
-            imagenService.saveFile(file);
-            return new ResponseEntity<Object>("Imagen subida correctamente", HttpStatus.OK);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return new ResponseEntity<Object>("Error al subir imagen", HttpStatus.BAD_REQUEST);
+        if (file.getContentType().equals("image/jpeg") ||
+                file.getContentType().equals("image/png") ||
+                file.getContentType().equals("image/gif")) {
+            try {
+                File files = new File("src/main/resources/files");
+                if (!files.exists()) files.mkdirs();
+
+                imagenService.saveFile(file);
+                return new ResponseEntity<Object>("Imagen subida correctamente", HttpStatus.OK);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return new ResponseEntity<Object>("Error al subir imagen", HttpStatus.BAD_REQUEST);
+            }
+        } else {
+            return new ResponseEntity<Object>("Tipo de imagen no reconocida", HttpStatus.BAD_REQUEST);
         }
 
     }
@@ -62,15 +67,17 @@ public class ImagenController {
         if (extension.equals("jpg") || extension.equals("jpeg")) {
             return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG)
                     .body(new InputStreamResource(imgFile.getInputStream()));
-            //return new ResponseEntity<Object>(imgFile, HttpStatus.OK);
+            // return new ResponseEntity<Object>(imgFile, HttpStatus.OK);
         } else if (extension.equals("gif")) {
             return ResponseEntity.ok().contentType(MediaType.IMAGE_GIF)
                     .body(new InputStreamResource(imgFile.getInputStream()));
         } else if (extension.equals("png")) {
             return ResponseEntity.ok().contentType(MediaType.IMAGE_PNG)
                     .body(new InputStreamResource(imgFile.getInputStream()));
-        } 
+        } else {
+            return ResponseEntity.badRequest().body("Error en tipo de imagen");
+        }
 
-        return new ResponseEntity<Object>(imgFile, HttpStatus.OK);
+        
     }
 }

@@ -42,7 +42,7 @@ public class ImagenController {
                 file.getContentType().equals("image/png") ||
                 file.getContentType().equals("image/gif")) {
             try {
-                File files = new File("src/main/resources/files");
+                File files = new File("src" + File.separator + "main" + File.separator + "resources" + File.separator + "files");
                 if (!files.exists()) files.mkdirs();
 
                 imagenService.saveFile(file);

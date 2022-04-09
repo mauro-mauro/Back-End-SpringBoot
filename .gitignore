@@ -32,5 +32,8 @@ build/
 ### VS Code ###
 .vscode/
 
-## descargas
-#/src/main/resources/files/
+### descargas
+/src/main/resources/files/
+
+### propiedades produccion
+/src/main/resources/application-prod.properties

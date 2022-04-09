@@ -34,7 +34,7 @@ import io.jsonwebtoken.Jwt;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin(origins = "https://mauroperaltaportfolio.web.app")
+@CrossOrigin(origins = {"${crossorigin.origin}"})
 public class AuthController {
  @Autowired
  PasswordEncoder passwordEncoder;  

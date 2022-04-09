@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@CrossOrigin(origins = "https://mauroperaltaportfolio.web.app")
+@CrossOrigin(origins = {"${crossorigin.origin}"})
 public class Controller {
     @Autowired
     private IExperienciaService expServ;

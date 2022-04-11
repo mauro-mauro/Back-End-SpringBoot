@@ -1,15 +1,6 @@
-package com.maurote.portfolio.entity;
+package com.maurote.portfolio.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
-@Entity
-public class DatoPersonal {
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private long id;
+public class DatoPersonalDto {
     private String nombre;
     private String profesion;
     private String texto;
@@ -17,17 +8,10 @@ public class DatoPersonal {
     private String urlGitHub;
     private String urlImagenPortada;
     private String urlImagenPerfil;
+    
 
-    public DatoPersonal() {
-    }
-
-    public long getId() {
-        return this.id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
+    public DatoPersonalDto() {
+    }    
 
     public String getUrlImagenPortada() {
         return this.urlImagenPortada;
@@ -68,7 +52,7 @@ public class DatoPersonal {
     public void setTexto(String texto) {
         this.texto = texto;
     }
-    
+
 
     public String getUrlFacebook() {
         return this.urlFacebook;

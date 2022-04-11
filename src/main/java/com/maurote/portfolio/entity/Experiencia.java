@@ -4,21 +4,22 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Experiencia {
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String titulo;
     private String lugar;
     private String url;
     private String periodo;
-    private String texto; 
-    
+    private String texto;
+
     public Experiencia() {
     }
-    
+
     public Experiencia(long id, String titulo, String lugar, String url, String periodo, String texto) {
         this.id = id;
         this.titulo = titulo;
@@ -75,7 +76,5 @@ public class Experiencia {
     public void setTexto(String texto) {
         this.texto = texto;
     }
-    
 
-    
 }

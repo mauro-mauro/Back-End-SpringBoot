@@ -33,7 +33,7 @@ build/
 .vscode/
 
 ### descargas
-src/main/resources/files/
+src/main/resources/files/*.*
 
 ### propiedades produccion
 #src/main/resources/application-prod.properties

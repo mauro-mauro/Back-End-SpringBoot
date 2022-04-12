@@ -38,6 +38,7 @@ public class ImagenController {
             try {
                 File files = new File("src" + File.separator + "main" + File.separator + "resources" + File.separator + "files");
                 if (!files.exists()) files.mkdirs();
+
                 imagenService.saveFile(file);
                 return new ResponseEntity<Object>("Imagen subida correctamente", HttpStatus.OK);
             } catch (IOException e) {

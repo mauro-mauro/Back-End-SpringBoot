@@ -43,7 +43,7 @@ public class ImagenController {
                 return new ResponseEntity<Object>("Imagen subida correctamente", HttpStatus.OK);
             } catch (IOException e) {
                 e.printStackTrace();
-                return new ResponseEntity<Object>("Error al subir imagen", HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<Object>("Error al subir imagen " + e.getMessage(), HttpStatus.BAD_REQUEST);
             }
         } else {
             return new ResponseEntity<Object>("Tipo de imagen no reconocida", HttpStatus.BAD_REQUEST);

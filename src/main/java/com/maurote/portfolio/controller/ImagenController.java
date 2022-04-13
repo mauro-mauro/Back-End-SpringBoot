@@ -29,6 +29,8 @@ public class ImagenController {
 
     @PostMapping("/subir")
     public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile file) {
+        InputStreamSource imgFile = new ClassPathResource("files" + File.separator + "nombre.png");
+
         if (file.isEmpty())
             return new ResponseEntity<Object>("Seleccionar un archivo", HttpStatus.OK);
 
@@ -43,6 +45,13 @@ public class ImagenController {
                 return new ResponseEntity<Object>("Imagen subida correctamente", HttpStatus.OK);
             } catch (IOException e) {
                 e.printStackTrace();
+                
+                try {
+                    return new ResponseEntity<Object>("Error al subir imagen " + e.getMessage() + ", url: " + (new InputStreamResource(imgFile.getInputStream())).getURL(), HttpStatus.BAD_REQUEST);
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+                
                 return new ResponseEntity<Object>("Error al subir imagen " + e.getMessage(), HttpStatus.BAD_REQUEST);
             }
         } else {
@@ -57,6 +66,7 @@ public class ImagenController {
 
         String extension = nombre.split("\\.")[nombre.split("\\.").length - 1].toLowerCase();
         InputStreamSource imgFile = new ClassPathResource("files" + File.separator + nombre);
+        (new InputStreamResource(imgFile.getInputStream())).getURL();
 
         if (extension.equals("jpg") || extension.equals("jpeg")) {
             return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG)

@@ -12,8 +12,8 @@ public class AdditionalResourceWebConfiguration implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry
-          .addResourceHandler("/resources/**")
-          .addResourceLocations("/resources/","/resources/files/")
+          .addResourceHandler("/files/**")
+          .addResourceLocations("/files/","/resources/files/")
           .setCachePeriod(3600)
           .resourceChain(true)
           .addResolver(new PathResourceResolver());

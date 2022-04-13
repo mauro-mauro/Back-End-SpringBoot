@@ -11,9 +11,9 @@ import java.nio.file.Paths;
 
 @Service
 public class ImagenService {
-    //private String upload_folder = "." + File.separator + "src" + File.separator + "main" + File.separator + "resources" + File.separator + "files" + File.separator;
-    //private String upload_folder = ".//src//main//resources//files//";
-    private String upload_folder = "images/";
+    private String upload_folder = File.separator + "resources" + File.separator + "files" + File.separator;
+    //private String upload_folder = "files//";
+    //private String upload_folder = "images/";
 
     public void saveFile(MultipartFile file) throws IOException {
 

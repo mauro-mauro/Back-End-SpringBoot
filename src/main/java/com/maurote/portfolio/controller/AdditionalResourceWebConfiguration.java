@@ -1,13 +1,21 @@
 package com.maurote.portfolio.controller;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.resource.PathResourceResolver;
 
 @Configuration
+@EnableWebMvc
 public class AdditionalResourceWebConfiguration implements WebMvcConfigurer {
     @Override
-    public void addResourceHandlers(final ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/images/**").addResourceLocations("file:images/");
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry
+          .addResourceHandler("/resources/**")
+          .addResourceLocations("/resources/","/resources/files/")
+          .setCachePeriod(3600)
+          .resourceChain(true)
+          .addResolver(new PathResourceResolver());
     }
 }

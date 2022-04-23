@@ -7,7 +7,7 @@ import com.maurote.portfolio.entity.Habilidad;
 
 public interface IHabilidadService {
     public List<Habilidad> listarHabilidad();
-    public void agregarHabilidad(Habilidad hab);
+    public void agregarHabilidad(Habilidad itemHab);
     public void borrarHabilidad(Long id);
     public boolean existePorId(Long id);
     public Optional<Habilidad> getOne(Long id);

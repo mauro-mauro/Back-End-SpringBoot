@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class DatoPersonal {
@@ -17,6 +18,12 @@ public class DatoPersonal {
     private String urlGitHub;
     private String urlImagenPortada;
     private String urlImagenPerfil;
+
+    @OneToOne
+    private Imagen imagenPortada;
+
+    @OneToOne
+    private Imagen imagenPerfil;
 
     public DatoPersonal() {
     }
@@ -84,6 +91,22 @@ public class DatoPersonal {
 
     public void setUrlGitHub(String urlGitHub) {
         this.urlGitHub = urlGitHub;
+    }
+
+    public Imagen getImagenPortada() {
+        return this.imagenPortada;
+    }
+
+    public void setImagenPortada(Imagen imagenPortada) {
+        this.imagenPortada = imagenPortada;
+    }
+
+    public Imagen getImagenPerfil() {
+        return this.imagenPerfil;
+    }
+
+    public void setImagenPerfil(Imagen imagenPerfil) {
+        this.imagenPerfil = imagenPerfil;
     }
     
 }

@@ -2,30 +2,33 @@ package com.maurote.portfolio.models;
 
 import javax.validation.constraints.NotBlank;
 
+import com.maurote.portfolio.entity.Imagen;
+
 public class ExperienciaDto {
     @NotBlank
     private String titulo;
     @NotBlank
     private String lugar;
-    private String url;
     @NotBlank
     private String periodo;
     private String texto; 
+
+    private Imagen imagen;
 
     public ExperienciaDto() {
     }
     
     public ExperienciaDto(@NotBlank String titulo, @NotBlank String lugar, 
-            String url, @NotBlank String periodo, String texto) {
+            @NotBlank String periodo, String texto, Imagen imagen) {
         this.titulo = titulo;
         this.lugar = lugar;
-        this.url = url;
         this.periodo = periodo;
         this.texto = texto;
+        this.imagen = imagen;
     }
 
     public String getTitulo() {
-        return titulo;
+        return this.titulo;
     }
 
     public void setTitulo(String titulo) {
@@ -33,23 +36,15 @@ public class ExperienciaDto {
     }
 
     public String getLugar() {
-        return lugar;
+        return this.lugar;
     }
 
     public void setLugar(String lugar) {
         this.lugar = lugar;
     }
 
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
     public String getPeriodo() {
-        return periodo;
+        return this.periodo;
     }
 
     public void setPeriodo(String periodo) {
@@ -57,13 +52,18 @@ public class ExperienciaDto {
     }
 
     public String getTexto() {
-        return texto;
+        return this.texto;
     }
 
     public void setTexto(String texto) {
         this.texto = texto;
     }
-    
-    
-    
+
+    public Imagen getImagen() {
+        return this.imagen;
+    }
+
+    public void setImagen(Imagen imagen) {
+        this.imagen = imagen;
+    }
 }

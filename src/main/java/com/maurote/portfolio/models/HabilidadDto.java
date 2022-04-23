@@ -1,32 +1,45 @@
 package com.maurote.portfolio.models;
 
-import java.util.Set;
+import com.maurote.portfolio.entity.Plataforma;
 
 public class HabilidadDto {
-    private String plataforma;
-    public Set<ItemHabilidadDto> listaHabilidad;
+
+    private int porcentaje;
+    private String habilidad;
+    private Plataforma plataforma;
 
     public HabilidadDto() {
     }
 
-    public HabilidadDto(String plataforma) {
+    public HabilidadDto(int porcentaje, String habilidad, Plataforma plataforma) {
+        this.porcentaje = porcentaje;
+        this.habilidad = habilidad;
         this.plataforma = plataforma;
     }
 
-    public String getPlataforma() {
+    public int getPorcentaje() {
+        return this.porcentaje;
+    }
+
+    public void setPorcentaje(int porcentaje) {
+        this.porcentaje = porcentaje;
+    }
+
+    public String getHabilidad() {
+        return this.habilidad;
+    }
+
+    public void setHabilidad(String habilidad) {
+        this.habilidad = habilidad;
+    }
+
+    public Plataforma getPlataforma() {
         return this.plataforma;
     }
 
-    public void setPlataforma(String plataforma) {
+    public void setPlataforma(Plataforma plataforma) {
         this.plataforma = plataforma;
     }
-
-    public Set<ItemHabilidadDto> getListaHabilidad() {
-        return this.listaHabilidad;
-    }
-
-    public void setListaHabilidad(Set<ItemHabilidadDto> listaHabilidad) {
-        this.listaHabilidad = listaHabilidad;
-    }
+    
 
 }

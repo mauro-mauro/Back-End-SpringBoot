@@ -11,4 +11,5 @@ public interface IExperienciaService {
     public void borrarExperiencia(Long id);
     public boolean existePorId(Long id);
     public Optional<Experiencia> getOne(Long id);
+    public void borrarPorObjeto(Experiencia exp);
 }

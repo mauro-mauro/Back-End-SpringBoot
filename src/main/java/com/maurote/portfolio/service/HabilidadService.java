@@ -2,6 +2,7 @@ package com.maurote.portfolio.service;
 
 import com.maurote.portfolio.entity.Habilidad;
 import com.maurote.portfolio.repository.HabilidadRepository;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -10,9 +11,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class HabilidadService implements IHabilidadService {
-    
+
     @Autowired
-    public HabilidadRepository habRepo;
+    private HabilidadRepository habRepo;
 
     @Override
     public List<Habilidad> listarHabilidad() {
@@ -20,8 +21,8 @@ public class HabilidadService implements IHabilidadService {
     }
 
     @Override
-    public void agregarHabilidad(Habilidad hab) {
-        habRepo.save(hab);
+    public void agregarHabilidad(Habilidad itemHab) {
+        habRepo.save(itemHab);
     }
 
     @Override
@@ -38,5 +39,5 @@ public class HabilidadService implements IHabilidadService {
     public Optional<Habilidad> getOne(Long id) {
         return habRepo.findById(id);
     }
-    
+
 }

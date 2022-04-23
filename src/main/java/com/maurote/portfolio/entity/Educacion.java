@@ -1,9 +1,12 @@
 package com.maurote.portfolio.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Educacion {
@@ -15,6 +18,10 @@ public class Educacion {
     private String url;
     private String periodo;
     private String texto; 
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="imagen_id")
+    private Imagen imagen;
     
     public Educacion() {
     }
@@ -74,6 +81,14 @@ public class Educacion {
 
     public void setTexto(String texto) {
         this.texto = texto;
+    }
+
+    public Imagen getImagen() {
+        return this.imagen;
+    }
+
+    public void setImagen(Imagen imagen) {
+        this.imagen = imagen;
     }
 
 }

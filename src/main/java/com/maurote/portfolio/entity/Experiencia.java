@@ -1,10 +1,13 @@
 package com.maurote.portfolio.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.Size;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Experiencia {
@@ -13,18 +16,20 @@ public class Experiencia {
     private long id;
     private String titulo;
     private String lugar;
-    private String url;
     private String periodo;
     private String texto;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="imagen_id")
+    private Imagen imagen;
 
     public Experiencia() {
     }
 
-    public Experiencia(long id, String titulo, String lugar, String url, String periodo, String texto) {
+    public Experiencia(long id, String titulo, String lugar, String periodo, String texto) {
         this.id = id;
         this.titulo = titulo;
         this.lugar = lugar;
-        this.url = url;
         this.periodo = periodo;
         this.texto = texto;
     }
@@ -53,14 +58,6 @@ public class Experiencia {
         this.lugar = lugar;
     }
 
-    public String getUrl() {
-        return this.url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
     public String getPeriodo() {
         return this.periodo;
     }
@@ -75,6 +72,14 @@ public class Experiencia {
 
     public void setTexto(String texto) {
         this.texto = texto;
+    }
+
+    public Imagen getImagen() {
+        return this.imagen;
+    }
+
+    public void setImagen(Imagen imagen) {
+        this.imagen = imagen;
     }
 
 }

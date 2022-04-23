@@ -38,4 +38,10 @@ public class ExperienciaService implements IExperienciaService{
     public Optional<Experiencia> getOne(Long id) {
         return expRepo.findById(id);
     }
+
+
+    @Override
+    public void borrarPorObjeto(Experiencia exp) {
+        expRepo.delete(exp);        
+    }
 }

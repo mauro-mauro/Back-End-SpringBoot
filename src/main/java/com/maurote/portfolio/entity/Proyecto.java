@@ -1,30 +1,35 @@
 package com.maurote.portfolio.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Proyecto {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
-    private String titulo;
+    private String nombreProyecto;
     private String programa;
-    private String url;
     private String repositorioGit;
     private String anio;
     private String texto;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="imagen_id")
+    private Imagen imagen;
+
     public Proyecto() {
     }
 
-    public Proyecto(long id, String titulo, String programa, String url, String repositorioGit, String anio, String texto) {
+    public Proyecto(long id, String nombreProyecto, String programa, String repositorioGit, String anio, String texto) {
         this.id = id;
-        this.titulo = titulo;
+        this.nombreProyecto = nombreProyecto;
         this.programa = programa;
-        this.url = url;
         this.repositorioGit = repositorioGit;
         this.anio = anio;
         this.texto = texto;
@@ -38,12 +43,12 @@ public class Proyecto {
         this.id = id;
     }
 
-    public String getTitulo() {
-        return this.titulo;
+    public String getNombreProyecto() {
+        return this.nombreProyecto;
     }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
+    public void setNombreProyecto(String nombreProyecto) {
+        this.nombreProyecto = nombreProyecto;
     }
 
     public String getPrograma() {
@@ -52,14 +57,6 @@ public class Proyecto {
 
     public void setPrograma(String programa) {
         this.programa = programa;
-    }
-
-    public String getUrl() {
-        return this.url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
     }
 
     public String getRepositorioGit() {
@@ -84,6 +81,14 @@ public class Proyecto {
 
     public void setTexto(String texto) {
         this.texto = texto;
+    }
+
+    public Imagen getImagen() {
+        return this.imagen;
+    }
+
+    public void setImagen(Imagen imagen) {
+        this.imagen = imagen;
     }
     
     

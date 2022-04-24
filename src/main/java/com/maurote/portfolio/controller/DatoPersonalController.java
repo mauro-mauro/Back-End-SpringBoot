@@ -5,6 +5,7 @@ import java.util.List;
 import com.maurote.portfolio.entity.DatoPersonal;
 import com.maurote.portfolio.entity.Mensaje;
 import com.maurote.portfolio.models.DatoPersonalDto;
+import com.maurote.portfolio.service.CloudinaryService;
 import com.maurote.portfolio.service.IDatoPersonalService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,9 @@ public class DatoPersonalController {
 
     @Autowired
     private IDatoPersonalService datoPerSer;
+
+    @Autowired
+    CloudinaryService cloudinaryService;
 
     @PostMapping("/nuevo")
     public void agregarDatoPersonal(@RequestBody DatoPersonal datoPer) {

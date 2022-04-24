@@ -2,6 +2,7 @@ package com.maurote.portfolio.controller;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +15,7 @@ import com.maurote.portfolio.entity.Mensaje;
 import com.maurote.portfolio.models.ExperienciaDto;
 import com.maurote.portfolio.service.CloudinaryService;
 import com.maurote.portfolio.service.IExperienciaService;
+import com.maurote.portfolio.service.ImagenService;
 
 import org.apache.tomcat.util.json.JSONParser;
 import org.cloudinary.json.JSONObject;
@@ -42,10 +44,8 @@ public class ExperienciaController {
     @Autowired
     CloudinaryService cloudinaryService;
 
-    // @PostMapping("/nuevo")
-    // public void agregarExperiencia(@RequestBody Experiencia exp) {
-    // expServ.agregarExperiencia(exp);
-    // }
+    @Autowired
+    ImagenService imagenService;
 
     @PostMapping("/nuevo")
     public ResponseEntity agregarExperiencia(@RequestParam MultipartFile imagen,
@@ -74,7 +74,7 @@ public class ExperienciaController {
             nuevaImagen.setImagenId((String) result.get("public_id"));
             nuevaImagen.setImagenUrl((String) result.get("url"));
             nuevaImagen.setName((String) result.get("original_filename"));
-            
+
             exp.setImagen(nuevaImagen);
 
         } else {
@@ -105,21 +105,87 @@ public class ExperienciaController {
         return new ResponseEntity(experiencia, HttpStatus.OK);
     }
 
-    @PutMapping("/editar/{id}")
-    public ResponseEntity<?> update(@PathVariable("id") long id, @RequestBody ExperienciaDto experienciaDto) {
-        if (!expServ.existePorId(id))
+    /*
+     * @PutMapping("/editar/{id}")
+     * public ResponseEntity<?> update(@PathVariable("id") long id, @RequestBody
+     * ExperienciaDto experienciaDto) {
+     * if (!expServ.existePorId(id))
+     * return new ResponseEntity(new Mensaje("no existe"), HttpStatus.NOT_FOUND);
+     * Experiencia experiencia = expServ.getOne(id).get();
+     * experiencia.setLugar(experienciaDto.getLugar());
+     * experiencia.setPeriodo(experienciaDto.getPeriodo());
+     * experiencia.setTexto(experienciaDto.getTexto());
+     * experiencia.setTitulo(experienciaDto.getTitulo());
+     * // experiencia.setUrlImagen(experienciaDto.getUrlImagen());
+     * // experiencia.getsetIdImagen(experienciaDto.getImagen());
+     * 
+     * expServ.agregarExperiencia(experiencia);
+     * 
+     * return new ResponseEntity(new Mensaje("experiencia actualizado"),
+     * HttpStatus.OK);
+     * }
+     */
+
+    @PutMapping("/editar")
+    public ResponseEntity<?> update(@RequestParam MultipartFile imagen,
+            @RequestParam String objeto,
+            @RequestParam String imagenId,
+            @RequestParam String quitarImagen) throws IOException {
+
+        // setear objeto
+        JSONObject objetoJson = new JSONObject(objeto);
+        int idImagen = Integer.parseInt(imagenId);
+        Map result;
+        Long idObjeto = Long.parseLong(objetoJson.getString("id"));
+        if (!expServ.existePorId(Long.parseLong(objetoJson.getString("id"))))
             return new ResponseEntity(new Mensaje("no existe"), HttpStatus.NOT_FOUND);
-        Experiencia experiencia = expServ.getOne(id).get();
-        experiencia.setLugar(experienciaDto.getLugar());
-        experiencia.setPeriodo(experienciaDto.getPeriodo());
-        experiencia.setTexto(experienciaDto.getTexto());
-        experiencia.setTitulo(experienciaDto.getTitulo());
-        // experiencia.setUrlImagen(experienciaDto.getUrlImagen());
-        // experiencia.getsetIdImagen(experienciaDto.getImagen());
 
-        expServ.agregarExperiencia(experiencia);
+        Experiencia exp = expServ.getOne(idObjeto).get();
+        exp.setTitulo(objetoJson.getString("titulo"));
+        exp.setPeriodo(objetoJson.getString("periodo"));
+        exp.setTexto(objetoJson.getString("texto"));
+        exp.setLugar(objetoJson.getString("lugar"));
 
-        return new ResponseEntity(new Mensaje("experiencia actualizado"), HttpStatus.OK);
+        // imagen
+        Imagen nuevaImagen = imagenService.getOne(idImagen).get();
+
+        // si hay imagen en formulario recibido actualizar imagen en cloudinary y bd
+        if (!imagen.isEmpty()) {
+            BufferedImage bi = ImageIO.read(imagen.getInputStream());
+            if (bi == null) {
+                return new ResponseEntity(new Mensaje("imagen no válida"), HttpStatus.BAD_REQUEST);
+            }
+
+            // borrar imagen si antes habia
+            if (!nuevaImagen.getImagenId().equals(""))
+                result = cloudinaryService.delete(nuevaImagen.getImagenId());
+
+            // guardar nueva imagen en cloudinary
+            result = cloudinaryService.upload(imagen);
+
+            // actualizar campos de la imagen en db
+            nuevaImagen.setImagenId((String) result.get("public_id"));
+            nuevaImagen.setImagenUrl((String) result.get("url"));
+            nuevaImagen.setName((String) result.get("original_filename"));
+
+            // guardar imagen en la entidad padre
+            exp.setImagen(nuevaImagen);
+
+        } 
+        else { 
+            // si no hay imagen en formulario recibido comprobar si antes habia para borrarla
+            if (!nuevaImagen.getImagenId().equals("") && quitarImagen.equals("true")) {
+                result = cloudinaryService.delete(nuevaImagen.getImagenId());
+                nuevaImagen.setImagenId("");
+                nuevaImagen.setImagenUrl("");
+                nuevaImagen.setName("");
+            }
+        }
+
+        // guardar objeto
+        expServ.agregarExperiencia(exp);
+
+        return new ResponseEntity(new Mensaje("Actualizado correctamente"),HttpStatus.OK);
     }
 
     @DeleteMapping("/borrar/{id}")
@@ -130,7 +196,6 @@ public class ExperienciaController {
     @DeleteMapping("/borrar-objeto/{id}")
     public void borrarExperienciaPorObjeto(@PathVariable Long id) {
         Experiencia experiencia = expServ.getOne(id).get();
-        System.out.println(experiencia);
         expServ.borrarPorObjeto(experiencia);
     }
 }

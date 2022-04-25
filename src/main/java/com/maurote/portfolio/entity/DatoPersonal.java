@@ -16,8 +16,6 @@ public class DatoPersonal {
     private String texto;
     private String urlFacebook;
     private String urlGitHub;
-    private String urlImagenPortada;
-    private String urlImagenPerfil;
 
     @OneToOne
     private Imagen imagenPortada;
@@ -34,22 +32,6 @@ public class DatoPersonal {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public String getUrlImagenPortada() {
-        return this.urlImagenPortada;
-    }
-
-    public void setUrlImagenPortada(String urlImagenPortada) {
-        this.urlImagenPortada = urlImagenPortada;
-    }
-
-    public String getUrlImagenPerfil() {
-        return this.urlImagenPerfil;
-    }
-
-    public void setUrlImagenPerfil(String urlImagenPerfil) {
-        this.urlImagenPerfil = urlImagenPerfil;
     }
 
     public String getNombre() {

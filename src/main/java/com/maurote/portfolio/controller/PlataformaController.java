@@ -54,13 +54,13 @@ public class PlataformaController {
         return new ResponseEntity(new Mensaje("Actualizado correctamente"), HttpStatus.OK);
     }
 
-    @GetMapping("/habilidad-plataformas/listar")
-    public List<Plataforma> listarPlataformaSimple() {
-        List<Plataforma> plataformas = plataformaServ.listarPlataforma();
-        for(Plataforma temp : plataformas){
-            temp.setListaHabilidad(null);
-        }
+    // @GetMapping("/habilidad-plataformas/listar")
+    // public List<Plataforma> listarPlataformaSimple() {
+    //     List<Plataforma> plataformas = plataformaServ.listarPlataforma();
+    //     for(Plataforma temp : plataformas){
+    //         temp.setListaHabilidad(null);
+    //     }
 
-        return plataformas;
-    }
+    //     return plataformas;
+    // }
 }

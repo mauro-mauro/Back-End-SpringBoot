@@ -10,7 +10,7 @@ public class Habilidad {
     private long id;
     private String habilidad;
     private int porcentaje;
-    
+        
     @ManyToOne
     //(cascade = {CascadeType.REMOVE})
     @JoinColumn(name = "plataforma_id") 
@@ -20,11 +20,10 @@ public class Habilidad {
     public Habilidad() {
     }
 
-    public Habilidad(long id, String habilidad, int porcentaje, Plataforma plataforma) {
+    public Habilidad(long id, String habilidad, int porcentaje) {
         this.id = id;
         this.habilidad = habilidad;
         this.porcentaje = porcentaje;
-        this.plataforma = plataforma;
     }
 
     public long getId() {

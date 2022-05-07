@@ -19,20 +19,20 @@ public class Proyecto {
     private String anio;
     private String texto;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="imagen_id")
-    private Imagen imagen;
+    private String imagenUrl;
+    private String imagenId;
 
     public Proyecto() {
     }
 
-    public Proyecto(long id, String nombreProyecto, String programa, String repositorioGit, String anio, String texto) {
-        this.id = id;
+    public Proyecto(String nombreProyecto, String programa, String repositorioGit, String anio, String texto, String imagenUrl, String imagenId) {
         this.nombreProyecto = nombreProyecto;
         this.programa = programa;
         this.repositorioGit = repositorioGit;
         this.anio = anio;
         this.texto = texto;
+        this.imagenUrl = imagenUrl;
+        this.imagenId = imagenId;
     }
 
     public long getId() {
@@ -83,13 +83,19 @@ public class Proyecto {
         this.texto = texto;
     }
 
-    public Imagen getImagen() {
-        return this.imagen;
+    public String getImagenUrl() {
+        return this.imagenUrl;
     }
 
-    public void setImagen(Imagen imagen) {
-        this.imagen = imagen;
+    public void setImagenUrl(String imagenUrl) {
+        this.imagenUrl = imagenUrl;
     }
-    
-    
+
+    public String getImagenId() {
+        return this.imagenId;
+    }
+
+    public void setImagenId(String imagenId) {
+        this.imagenId = imagenId;
+    }
 }

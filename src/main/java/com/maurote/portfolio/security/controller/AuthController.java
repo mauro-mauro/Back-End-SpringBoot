@@ -4,15 +4,14 @@ import java.text.ParseException;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.validation.Valid;
+
 import com.maurote.portfolio.entity.Mensaje;
 import com.maurote.portfolio.security.dto.JwtDto;
 import com.maurote.portfolio.security.dto.LoginUsuario;
 import com.maurote.portfolio.security.dto.NuevoUsuario;
-import com.maurote.portfolio.security.entity.Rol;
 import com.maurote.portfolio.security.entity.Usuario;
-import com.maurote.portfolio.security.enums.RolNombre;
 import com.maurote.portfolio.security.jwt.JwtProvider;
-import com.maurote.portfolio.security.service.RolService;
 import com.maurote.portfolio.security.service.UsuarioService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,9 +45,6 @@ public class AuthController {
  UsuarioService usuarioService;
 
  @Autowired
- RolService rolService;
-
- @Autowired
  JwtProvider jwtProvider;
 
  @PostMapping("/nuevo")
@@ -60,11 +56,6 @@ public class AuthController {
     if(usuarioService.existsByEmail(nuevoUsuario.getEmail()))
         return new ResponseEntity(new Mensaje("ese email ya existe"),HttpStatus.BAD_REQUEST);
     Usuario usuario = new Usuario(nuevoUsuario.getNombre(), nuevoUsuario.getNombre(), nuevoUsuario.getEmail(),passwordEncoder.encode(nuevoUsuario.getPassword()));
-    Set<Rol> roles = new HashSet<>();
-    roles.add(rolService.getByRolNombre(RolNombre.ROL_USER).get());
-    if(nuevoUsuario.getRoles().contains("admin"))
-        roles.add(rolService.getByRolNombre(RolNombre.ROLE_ADMIN).get());
-    usuario.setRoles(roles);
     usuarioService.save(usuario);
     return new ResponseEntity(new Mensaje("usuario guardado"),HttpStatus.CREATED);
  }

@@ -7,7 +7,6 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
-import com.maurote.portfolio.entity.Imagen;
 import com.maurote.portfolio.entity.Mensaje;
 import com.maurote.portfolio.entity.Proyecto;
 import com.maurote.portfolio.service.IProyectoService;
@@ -23,6 +22,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -66,20 +66,13 @@ public class ProyectoController {
             Map result = cloudinaryService.upload(imagen);
 
             // setear objeto
-            Imagen nuevaImagen = new Imagen();
-            nuevaImagen.setImagenId((String) result.get("public_id"));
-            nuevaImagen.setImagenUrl((String) result.get("url"));
-            nuevaImagen.setName((String) result.get("original_filename"));
-            
-            proyecto.setImagen(nuevaImagen);
+            proyecto.setImagenId((String) result.get("public_id"));
+            proyecto.setImagenUrl((String) result.get("secure_url"));
 
         } else {
             // setear objeto
-            Imagen nuevaImagen = new Imagen();
-            nuevaImagen.setImagenId("");
-            nuevaImagen.setImagenUrl("");
-            nuevaImagen.setName("");
-            proyecto.setImagen(nuevaImagen);
+            proyecto.setImagenId("");
+            proyecto.setImagenUrl("");
         }
 
         // guardar objeto
@@ -108,6 +101,59 @@ public class ProyectoController {
         proServ.borrarProyecto(id);
 
         return new ResponseEntity<>(new Mensaje("Borrado correctamente"), HttpStatus.OK);
+    }
+
+    @PutMapping("/editar")
+    public ResponseEntity<?> update(@RequestParam MultipartFile imagen,
+            @RequestParam String objeto,
+            @RequestParam String quitarImagen) throws IOException {
+
+        // setear objeto
+        JSONObject objetoJson = new JSONObject(objeto);
+        Map result;
+        Long idObjeto = Long.parseLong(objetoJson.getString("id"));
+        if (!proServ.existePorId(Long.parseLong(objetoJson.getString("id"))))
+            return new ResponseEntity(new Mensaje("no existe"), HttpStatus.NOT_FOUND);
+
+        Proyecto proyecto = proServ.getOne(idObjeto).get();
+        proyecto.setNombreProyecto(objetoJson.getString("nombreProyecto"));
+        proyecto.setPrograma(objetoJson.getString("programa"));
+        proyecto.setTexto(objetoJson.getString("texto"));
+        proyecto.setRepositorioGit(objetoJson.getString("repositorioGit"));
+        proyecto.setAnio(objetoJson.getString("anio"));
+
+        // si hay imagen en formulario recibido actualizar imagen en cloudinary y bd
+        if (!imagen.isEmpty()) {
+            BufferedImage bi = ImageIO.read(imagen.getInputStream());
+            if (bi == null) {
+                return new ResponseEntity(new Mensaje("imagen no válida"), HttpStatus.BAD_REQUEST);
+            }
+
+            // borrar imagen si antes habia
+            if (!objetoJson.getString("imagenId").equals(""))
+                result = cloudinaryService.delete(objetoJson.getString("imagenId"));
+
+            // guardar nueva imagen en cloudinary
+            result = cloudinaryService.upload(imagen);
+
+            // actualizar campos de la imagen en db
+            proyecto.setImagenId((String) result.get("public_id"));
+            proyecto.setImagenUrl((String) result.get("secure_url"));
+
+        } 
+        else { 
+            // si no hay imagen en formulario recibido comprobar si antes habia para borrarla
+            if (!objetoJson.getString("imagenId").equals("") && quitarImagen.equals("true")) {
+                result = cloudinaryService.delete(objetoJson.getString("imagenId"));
+                proyecto.setImagenId("");
+                proyecto.setImagenUrl("");
+            }
+        }
+
+        // guardar objeto
+        proServ.agregarProyecto(proyecto);
+
+        return new ResponseEntity(new Mensaje("Actualizado correctamente"),HttpStatus.OK);
     }
     
 }

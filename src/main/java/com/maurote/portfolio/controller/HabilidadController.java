@@ -37,7 +37,6 @@ public class HabilidadController {
         Habilidad habilidad = new Habilidad();
         habilidad.setHabilidad(habilidadDto.getHabilidad());
         habilidad.setPorcentaje(habilidadDto.getPorcentaje());
-        habilidad.setPlataforma(habilidadDto.getPlataforma());
 
         habilidadSer.agregarHabilidad(habilidad);
         return new ResponseEntity(new Mensaje("agregado correctamente"), HttpStatus.OK);

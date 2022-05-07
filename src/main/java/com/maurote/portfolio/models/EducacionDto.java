@@ -7,25 +7,27 @@ public class EducacionDto {
     private String titulo;
     @NotBlank
     private String lugar;
-    private String url;
     @NotBlank
     private String periodo;
     private String texto; 
 
+    private String imagenId;
+    private String imagenUrl; 
+
     public EducacionDto() {
     }
-    
-    public EducacionDto(@NotBlank String titulo, @NotBlank String lugar, 
-            String url, @NotBlank String periodo, String texto) {
+
+    public EducacionDto(String titulo, String lugar, String periodo, String texto, String imagenId, String imagenUrl) {
         this.titulo = titulo;
         this.lugar = lugar;
-        this.url = url;
         this.periodo = periodo;
         this.texto = texto;
+        this.imagenId = imagenId;
+        this.imagenUrl = imagenUrl;
     }
 
     public String getTitulo() {
-        return titulo;
+        return this.titulo;
     }
 
     public void setTitulo(String titulo) {
@@ -33,23 +35,15 @@ public class EducacionDto {
     }
 
     public String getLugar() {
-        return lugar;
+        return this.lugar;
     }
 
     public void setLugar(String lugar) {
         this.lugar = lugar;
     }
 
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
     public String getPeriodo() {
-        return periodo;
+        return this.periodo;
     }
 
     public void setPeriodo(String periodo) {
@@ -57,10 +51,26 @@ public class EducacionDto {
     }
 
     public String getTexto() {
-        return texto;
+        return this.texto;
     }
 
     public void setTexto(String texto) {
         this.texto = texto;
+    }
+
+    public String getImagenId() {
+        return this.imagenId;
+    }
+
+    public void setImagenId(String imagenId) {
+        this.imagenId = imagenId;
+    }
+
+    public String getImagenUrl() {
+        return this.imagenUrl;
+    }
+
+    public void setImagenUrl(String imagenUrl) {
+        this.imagenUrl = imagenUrl;
     }
 }

@@ -17,11 +17,11 @@ public class DatoPersonal {
     private String urlFacebook;
     private String urlGitHub;
 
-    @OneToOne
-    private Imagen imagenPortada;
+    private String imagenPerfilUrl;
+    private String imagenPerfilId;
 
-    @OneToOne
-    private Imagen imagenPerfil;
+    private String imagenPortadaUrl;
+    private String imagenPortadaId;
 
     public DatoPersonal() {
     }
@@ -57,7 +57,6 @@ public class DatoPersonal {
     public void setTexto(String texto) {
         this.texto = texto;
     }
-    
 
     public String getUrlFacebook() {
         return this.urlFacebook;
@@ -75,20 +74,36 @@ public class DatoPersonal {
         this.urlGitHub = urlGitHub;
     }
 
-    public Imagen getImagenPortada() {
-        return this.imagenPortada;
+    public String getImagenPerfilUrl() {
+        return this.imagenPerfilUrl;
     }
 
-    public void setImagenPortada(Imagen imagenPortada) {
-        this.imagenPortada = imagenPortada;
+    public void setImagenPerfilUrl(String imagenPerfilUrl) {
+        this.imagenPerfilUrl = imagenPerfilUrl;
     }
 
-    public Imagen getImagenPerfil() {
-        return this.imagenPerfil;
+    public String getImagenPerfilId() {
+        return this.imagenPerfilId;
     }
 
-    public void setImagenPerfil(Imagen imagenPerfil) {
-        this.imagenPerfil = imagenPerfil;
+    public void setImagenPerfilId(String imagenPerfilId) {
+        this.imagenPerfilId = imagenPerfilId;
+    }
+
+    public String getImagenPortadaUrl() {
+        return this.imagenPortadaUrl;
+    }
+
+    public void setImagenPortadaUrl(String imagenPortadaUrl) {
+        this.imagenPortadaUrl = imagenPortadaUrl;
+    }
+
+    public String getImagenPortadaId() {
+        return this.imagenPortadaId;
+    }
+
+    public void setImagenPortadaId(String imagenPortadaId) {
+        this.imagenPortadaId = imagenPortadaId;
     }
     
 }

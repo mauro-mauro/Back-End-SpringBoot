@@ -11,4 +11,7 @@ public interface IHabilidadService {
     public void borrarHabilidad(Long id);
     public boolean existePorId(Long id);
     public Optional<Habilidad> getOne(Long id);
+
+    public List<Habilidad> search(Long id);
+    public void borrarConGrupoDeHabilidad(Long idGrupoHabilidadBorrar);
 }

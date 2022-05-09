@@ -19,6 +19,12 @@
 	</properties>
 	<profiles>
 		<profile>
+			<id>var</id>
+			<properties>
+				<activatedProperties>var</activatedProperties>
+			</properties>
+		</profile>
+		<profile>
 			<id>dev</id>
 			<properties>
 				<activatedProperties>dev</activatedProperties>
@@ -31,7 +37,7 @@
 			<id>prod</id>
 			<properties>
 				<activatedProperties>prod</activatedProperties>
-			</properties>			
+			</properties>
 		</profile>
 	</profiles>
 

@@ -8,7 +8,6 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 
 import com.maurote.portfolio.entity.Educacion;
-import com.maurote.portfolio.entity.Imagen;
 import com.maurote.portfolio.entity.Mensaje;
 import com.maurote.portfolio.models.EducacionDto;
 import com.maurote.portfolio.service.CloudinaryService;
@@ -63,20 +62,13 @@ public class EducacionController {
             Map result = cloudinaryService.upload(imagen);
 
             // setear objeto
-            Imagen nuevaImagen = new Imagen();
-            nuevaImagen.setImagenId((String) result.get("public_id"));
-            nuevaImagen.setImagenUrl((String) result.get("url"));
-            nuevaImagen.setName((String) result.get("original_filename"));
-            
-            edu.setImagen(nuevaImagen);
+            edu.setImagenId((String) result.get("public_id"));
+            edu.setImagenUrl((String) result.get("secure_url"));
 
         } else {
             // setear objeto
-            Imagen nuevaImagen = new Imagen();
-            nuevaImagen.setImagenId("");
-            nuevaImagen.setImagenUrl("");
-            nuevaImagen.setName("");
-            edu.setImagen(nuevaImagen);
+            edu.setImagenId("");
+            edu.setImagenUrl("");
         }
 
         // guardar objeto
@@ -103,19 +95,55 @@ public class EducacionController {
         return new ResponseEntity(educacion, HttpStatus.OK);
     }
 
-    @PutMapping("/editar/{id}")
-    public ResponseEntity<?> updateEducacion(@PathVariable("id") long id, @RequestBody EducacionDto educacionDto) {
-        if (!eduServ.existePorId(id))
+    @PutMapping("/editar")
+    public ResponseEntity<?> update(@RequestParam MultipartFile imagen,
+            @RequestParam String objeto,
+            @RequestParam String quitarImagen) throws IOException {
+
+        // setear objeto
+        JSONObject objetoJson = new JSONObject(objeto);
+        Map result;
+        Long idObjeto = Long.parseLong(objetoJson.getString("id"));
+        if (!eduServ.existePorId(Long.parseLong(objetoJson.getString("id"))))
             return new ResponseEntity(new Mensaje("no existe"), HttpStatus.NOT_FOUND);
-        Educacion educacion = eduServ.getOne(id).get();
-        educacion.setLugar(educacionDto.getLugar());
-        educacion.setPeriodo(educacionDto.getPeriodo());
-        educacion.setTexto(educacionDto.getTexto());
-        educacion.setTitulo(educacionDto.getTitulo());
-        educacion.setUrl(educacionDto.getUrl());
 
-        eduServ.agregarEducacion(educacion);
+        Educacion edu = eduServ.getOne(idObjeto).get();
+        edu.setTitulo(objetoJson.getString("titulo"));
+        edu.setPeriodo(objetoJson.getString("periodo"));
+        edu.setTexto(objetoJson.getString("texto"));
+        edu.setLugar(objetoJson.getString("lugar"));
 
-        return new ResponseEntity(new Mensaje("experiencia actualizado"), HttpStatus.OK);
+        // si hay imagen en formulario recibido actualizar imagen en cloudinary y bd
+        if (!imagen.isEmpty()) {
+            BufferedImage bi = ImageIO.read(imagen.getInputStream());
+            if (bi == null) {
+                return new ResponseEntity(new Mensaje("imagen no válida"), HttpStatus.BAD_REQUEST);
+            }
+
+            // borrar imagen si antes habia
+            if (!objetoJson.getString("imagenId").equals(""))
+                result = cloudinaryService.delete(objetoJson.getString("imagenId"));
+
+            // guardar nueva imagen en cloudinary
+            result = cloudinaryService.upload(imagen);
+
+            // actualizar campos de la imagen en db
+            edu.setImagenId((String) result.get("public_id"));
+            edu.setImagenUrl((String) result.get("secure_url"));
+
+        } 
+        else { 
+            // si no hay imagen en formulario recibido comprobar si antes habia para borrarla
+            if (!objetoJson.getString("imagenId").equals("") && quitarImagen.equals("true")) {
+                result = cloudinaryService.delete(objetoJson.getString("imagenId"));
+                edu.setImagenId("");
+                edu.setImagenUrl("");
+            }
+        }
+
+        // guardar objeto
+        eduServ.agregarEducacion(edu);
+
+        return new ResponseEntity(new Mensaje("Actualizado correctamente"),HttpStatus.OK);
     }
 }

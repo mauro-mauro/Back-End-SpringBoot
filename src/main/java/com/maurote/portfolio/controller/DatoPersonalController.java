@@ -1,18 +1,18 @@
 package com.maurote.portfolio.controller;
 
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import javax.imageio.ImageIO;
-
 import com.maurote.portfolio.entity.DatoPersonal;
-import com.maurote.portfolio.entity.Imagen;
 import com.maurote.portfolio.entity.Mensaje;
+import com.maurote.portfolio.models.DatoPersonalDto;
 import com.maurote.portfolio.service.CloudinaryService;
 import com.maurote.portfolio.service.IDatoPersonalService;
-import com.maurote.portfolio.service.ImagenService;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 import org.cloudinary.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,9 +40,6 @@ public class DatoPersonalController {
     @Autowired
     CloudinaryService cloudinaryService;
 
-    @Autowired
-    ImagenService imagenService;
-
     @PostMapping("/nuevo")
     public void agregarDatoPersonal(@RequestBody DatoPersonal datoPer) {
         datoPerSer.agregarDatoPersonal(datoPer);
@@ -66,16 +63,12 @@ public class DatoPersonalController {
             @RequestParam MultipartFile imagenPerfil,
             @RequestParam MultipartFile imagenPortada,
             @RequestParam String objeto,
-            @RequestParam String imagenPerfilId,
-            @RequestParam String imagenPortadaId,
             @RequestParam String quitarImagenPerfil,
             @RequestParam String quitarImagenPortada) throws IOException {
 
         System.out.println(objeto);
         // setear objeto
         JSONObject objetoJson = new JSONObject(objeto);
-        int idImagenPerfil = Integer.parseInt(imagenPerfilId);
-        int idImagenPortada = Integer.parseInt(imagenPortadaId);
 
         Map resultPerfil;
         Map resultPortada;
@@ -90,9 +83,6 @@ public class DatoPersonalController {
         datoPersonal.setUrlFacebook(objetoJson.getString("urlFacebook"));
         datoPersonal.setUrlGitHub(objetoJson.getString("urlGitHub"));
 
-        Imagen nuevaImagenPerfil = imagenService.getOne(idImagenPerfil).get();
-        Imagen nuevaImagenPortada = imagenService.getOne(idImagenPortada).get();
-
         // -------------------------------------------- imagen perfil
         // -------------------------------------------------------
         // si hay imagen en formulario recibido actualizar imagen en cloudinary y bd
@@ -103,31 +93,23 @@ public class DatoPersonalController {
             }
 
             // borrar imagen si antes habia
-            if (!nuevaImagenPerfil.getImagenId().equals(""))
-                resultPerfil = cloudinaryService.delete(nuevaImagenPerfil.getImagenId());
+            if (!objetoJson.getString("imagenPerfilId").equals(""))
+                resultPerfil = cloudinaryService.delete(objetoJson.getString("imagenPerfilId"));
 
             // guardar nueva imagen en cloudinary
             resultPerfil = cloudinaryService.upload(imagenPerfil);
 
             // actualizar campos de la imagen en db
-            nuevaImagenPerfil.setImagenId((String) resultPerfil.get("public_id"));
-            nuevaImagenPerfil.setImagenUrl((String) resultPerfil.get("url"));
-            nuevaImagenPerfil.setName((String) resultPerfil.get("original_filename"));
-
-            // guardar imagen en la entidad padre
-            datoPersonal.setImagenPerfil(nuevaImagenPerfil);
+            datoPersonal.setImagenPerfilId((String) resultPerfil.get("public_id"));
+            datoPersonal.setImagenPerfilUrl((String) resultPerfil.get("secure_url"));
 
         } else if (imagenPerfil.isEmpty()) {
             // si no hay imagen en formulario recibido comprobar si antes habia para
             // borrarla
-            if (!nuevaImagenPerfil.getImagenId().equals("") && quitarImagenPerfil.equals("true")) {
-                resultPerfil = cloudinaryService.delete(nuevaImagenPerfil.getImagenId());
-                nuevaImagenPerfil.setImagenId("");
-                nuevaImagenPerfil.setImagenUrl("");
-                nuevaImagenPerfil.setName("");
-
-                // guardar imagen en la entidad padre
-                datoPersonal.setImagenPerfil(nuevaImagenPerfil);
+            if (!objetoJson.getString("imagenPerfilId").equals("") && quitarImagenPerfil.equals("true")) {
+                resultPerfil = cloudinaryService.delete(objetoJson.getString("imagenPerfilId"));
+                datoPersonal.setImagenPerfilId("");
+                datoPersonal.setImagenPerfilUrl("");
             }
         }
         // --------Fin imagen perfil ------------------------//
@@ -141,31 +123,22 @@ public class DatoPersonalController {
             }
 
             // borrar imagen si antes habia
-            if (!nuevaImagenPortada.getImagenId().equals(""))
-                resultPortada = cloudinaryService.delete(nuevaImagenPortada.getImagenId());
+            if (!objetoJson.getString("imagenPortadaId").equals(""))
+                resultPortada = cloudinaryService.delete(objetoJson.getString("imagenPortadaId"));
 
             // guardar nueva imagen en cloudinary
             resultPortada = cloudinaryService.upload(imagenPortada);
 
             // actualizar campos de la imagen en db
-            nuevaImagenPortada.setImagenId((String) resultPortada.get("public_id"));
-            nuevaImagenPortada.setImagenUrl((String) resultPortada.get("url"));
-            nuevaImagenPortada.setName((String) resultPortada.get("original_filename"));
-
-            // guardar imagen en la entidad padre
-            datoPersonal.setImagenPortada(nuevaImagenPortada);
+            datoPersonal.setImagenPortadaId((String) resultPortada.get("public_id"));
+            datoPersonal.setImagenPortadaUrl((String) resultPortada.get("secure_url"));
 
         } else if (imagenPortada.isEmpty()) {
             // si no hay imagen en formulario recibido comprobar si antes habia para
             // borrarla
-            if (!nuevaImagenPortada.getImagenId().equals("") && quitarImagenPortada.equals("true")) {
-                resultPortada = cloudinaryService.delete(nuevaImagenPortada.getImagenId());
-                nuevaImagenPortada.setImagenId("");
-                nuevaImagenPortada.setImagenUrl("");
-                nuevaImagenPortada.setName("");
-
-                // guardar imagen en la entidad padre
-                datoPersonal.setImagenPortada(nuevaImagenPortada);
+            if (!objetoJson.getString("imagenPortadaId").equals("") && quitarImagenPortada.equals("true")) {
+                datoPersonal.setImagenPortadaId("");
+                datoPersonal.setImagenPortadaUrl("");
             }
         }
         // ---------- Fin imagen portada -----------------------//
@@ -175,26 +148,5 @@ public class DatoPersonalController {
 
         return new ResponseEntity(new Mensaje("Actualizado correctamente"), HttpStatus.OK);
     }
-
-    /*
-     * @PutMapping("/editar/{id}")
-     * public ResponseEntity<?> updateEducacion(@PathVariable("id") long id,
-     * 
-     * @RequestBody DatoPersonalDto datoPersonalDto) {
-     * if (!datoPerSer.existePorId(id))
-     * return new ResponseEntity(new Mensaje("no existe"), HttpStatus.NOT_FOUND);
-     * DatoPersonal datoPersonal = datoPerSer.getOne(id).get();
-     * datoPersonal.setNombre(datoPersonalDto.getNombre());
-     * datoPersonal.setProfesion(datoPersonalDto.getProfesion());
-     * datoPersonal.setTexto(datoPersonalDto.getTexto());
-     * datoPersonal.setUrlFacebook(datoPersonalDto.getUrlFacebook());
-     * datoPersonal.setUrlGitHub(datoPersonalDto.getUrlGitHub());
-     * 
-     * datoPerSer.agregarDatoPersonal(datoPersonal);
-     * 
-     * return new ResponseEntity(new Mensaje("dato personal actualizado"),
-     * HttpStatus.OK);
-     * }
-     */
 
 }

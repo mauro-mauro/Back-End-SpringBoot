@@ -11,20 +11,16 @@ public class Habilidad {
     private String habilidad;
     private int porcentaje;
     
-    @ManyToOne
-    //(cascade = {CascadeType.REMOVE})
-    @JoinColumn(name = "plataforma_id") 
     @JsonIgnore
-    private Plataforma plataforma;
+    private long id_grupoHabilidad;
 
     public Habilidad() {
     }
 
-    public Habilidad(long id, String habilidad, int porcentaje, Plataforma plataforma) {
+    public Habilidad(long id, String habilidad, int porcentaje) {
         this.id = id;
         this.habilidad = habilidad;
         this.porcentaje = porcentaje;
-        this.plataforma = plataforma;
     }
 
     public long getId() {
@@ -51,12 +47,12 @@ public class Habilidad {
         this.porcentaje = porcentaje;
     }
 
-    public Plataforma getPlataforma() {
-        return this.plataforma;
+    public long getId_grupoHabilidad() {
+        return this.id_grupoHabilidad;
     }
 
-    public void setPlataforma(Plataforma plataforma) {
-        this.plataforma = plataforma;
+    public void setId_grupoHabilidad(long id_grupoHabilidad) {
+        this.id_grupoHabilidad = id_grupoHabilidad;
     }
     
     

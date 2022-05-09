@@ -19,6 +19,12 @@
 	</properties>
 	<profiles>
 		<profile>
+			<id>var</id>
+			<properties>
+				<activatedProperties>var</activatedProperties>
+			</properties>
+		</profile>
+		<profile>
 			<id>dev</id>
 			<properties>
 				<activatedProperties>dev</activatedProperties>
@@ -31,7 +37,7 @@
 			<id>prod</id>
 			<properties>
 				<activatedProperties>prod</activatedProperties>
-			</properties>			
+			</properties>
 		</profile>
 	</profiles>
 
@@ -78,11 +84,6 @@
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt</artifactId>
 			<version>0.9.1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>1.18.22</version>
 		</dependency>
 		<dependency>
 			<groupId>com.cloudinary</groupId>

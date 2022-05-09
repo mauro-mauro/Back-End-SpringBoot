@@ -1,20 +1,20 @@
 package com.maurote.portfolio.models;
 
-import com.maurote.portfolio.entity.Plataforma;
+import com.maurote.portfolio.entity.GrupoHabilidad;
 
 public class HabilidadDto {
 
     private int porcentaje;
     private String habilidad;
-    private Plataforma plataforma;
+    private String grupoHabilidad;
 
     public HabilidadDto() {
     }
 
-    public HabilidadDto(int porcentaje, String habilidad, Plataforma plataforma) {
+    public HabilidadDto(int porcentaje, String habilidad, String grupoHabilidad) {
         this.porcentaje = porcentaje;
         this.habilidad = habilidad;
-        this.plataforma = plataforma;
+        this.grupoHabilidad = grupoHabilidad;
     }
 
     public int getPorcentaje() {
@@ -33,12 +33,12 @@ public class HabilidadDto {
         this.habilidad = habilidad;
     }
 
-    public Plataforma getPlataforma() {
-        return this.plataforma;
+    public String getGrupoHabilidad() {
+        return this.grupoHabilidad;
     }
 
-    public void setPlataforma(Plataforma plataforma) {
-        this.plataforma = plataforma;
+    public void setGrupoHabilidad(String grupoHabilidad) {
+        this.grupoHabilidad = grupoHabilidad;
     }
     
 

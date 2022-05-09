@@ -40,4 +40,16 @@ public class HabilidadService implements IHabilidadService {
         return habRepo.findById(id);
     }
 
+    @Override
+    public List<Habilidad> search(Long id) {
+        return habRepo.search(id);
+    }
+
+    @Override
+    public void borrarConGrupoDeHabilidad(Long idGrupoHabilidadBorrar) {
+        habRepo.borrarConGrupoDeHabilidad(idGrupoHabilidadBorrar);
+        
+    }
+
+
 }

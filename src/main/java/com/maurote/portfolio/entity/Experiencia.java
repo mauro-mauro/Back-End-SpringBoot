@@ -19,19 +19,19 @@ public class Experiencia {
     private String periodo;
     private String texto;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="imagen_id")
-    private Imagen imagen;
+    private String imagenUrl;
+    private String imagenId;
 
     public Experiencia() {
     }
 
-    public Experiencia(long id, String titulo, String lugar, String periodo, String texto) {
-        this.id = id;
+    public Experiencia(String titulo, String lugar, String periodo, String texto, String imagenUrl, String imagenId) {
         this.titulo = titulo;
         this.lugar = lugar;
         this.periodo = periodo;
         this.texto = texto;
+        this.imagenUrl = imagenUrl;
+        this.imagenId = imagenId;
     }
 
     public long getId() {
@@ -74,12 +74,20 @@ public class Experiencia {
         this.texto = texto;
     }
 
-    public Imagen getImagen() {
-        return this.imagen;
+    public String getImagenUrl() {
+        return this.imagenUrl;
     }
 
-    public void setImagen(Imagen imagen) {
-        this.imagen = imagen;
+    public void setImagenUrl(String imagenUrl) {
+        this.imagenUrl = imagenUrl;
+    }
+
+    public String getImagenId() {
+        return this.imagenId;
+    }
+
+    public void setImagenId(String imagenId) {
+        this.imagenId = imagenId;
     }
 
 }

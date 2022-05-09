@@ -33,4 +33,4 @@ build/
 .vscode/
 
 ### Variables con contraseñas
-#src/main/resources/application-var.properties
+src/main/resources/application-var.properties

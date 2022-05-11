@@ -5,6 +5,9 @@ package com.maurote.portfolio.security.jwt;
 // import com.nimbusds.jwt.JWTParser;
 import com.maurote.portfolio.security.dto.JwtDto;
 import com.maurote.portfolio.security.entity.UsuarioPrincipal;
+import com.nimbusds.jwt.JWT;
+import com.nimbusds.jwt.JWTClaimsSet;
+import com.nimbusds.jwt.JWTParser;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -41,7 +44,7 @@ public class JwtProvider {
                 .setSubject(usuarioPrincipal.getUsername())
                 .claim("roles", roles)
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(new Date().getTime() + expiration * 1000))
+                .setExpiration(new Date(new Date().getTime() + expiration))
                 .signWith(SignatureAlgorithm.HS512, secret.getBytes())
                 .compact();
     }
@@ -69,18 +72,18 @@ public class JwtProvider {
     }
 
 
-    // public String refreshToken(JwtDto jwtDto) throws ParseException {
-    //     JWT jwt = JWTParser.parse(jwtDto.getToken());
-    //     JWTClaimsSet claims=jwt.getJWTClaimsSet();
-    //     String nombreUsuario=claims.getSubject();
-    //     List<String> roles = (List<String>) claims.getClaim("roles");
+    public String refreshToken(JwtDto jwtDto) throws ParseException {
+        JWT jwt = JWTParser.parse(jwtDto.getToken());
+        JWTClaimsSet claims=jwt.getJWTClaimsSet();
+        String nombreUsuario=claims.getSubject();
+        List<String> roles = (List<String>) claims.getClaim("roles");
 
-    //     return Jwts.builder()
-    //             .setSubject(nombreUsuario)
-    //             .claim("roles", roles)
-    //             .setIssuedAt(new Date())
-    //             .setExpiration(new Date(new Date().getTime() + expiration))
-    //             .signWith(SignatureAlgorithm.HS512, secret.getBytes())
-    //             .compact();
-    // }
+        return Jwts.builder()
+                .setSubject(nombreUsuario)
+                .claim("roles", roles)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(new Date().getTime() + expiration))
+                .signWith(SignatureAlgorithm.HS512, secret.getBytes())
+                .compact();
+    }
 }

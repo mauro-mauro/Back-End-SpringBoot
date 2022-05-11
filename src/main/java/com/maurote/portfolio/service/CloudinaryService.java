@@ -24,9 +24,9 @@ public class CloudinaryService {
             @Value("${cloudinary.cloud-name}") String cloudName,
             @Value("${cloudinary.api-key}") String apiKey,
             @Value("${cloudinary.api-secret}") String apiSecret) {
-        System.out.println("cloud_name: " + cloudName);
-        System.out.println("apiKey: " + apiKey);
-        System.out.println("apiSecret: " + apiSecret);
+        // System.out.println("cloud_name: " + cloudName);
+        // System.out.println("apiKey: " + apiKey);
+        // System.out.println("apiSecret: " + apiSecret);
 
         valuesMap.put("cloud_name", cloudName);
         valuesMap.put("api_key", apiKey);

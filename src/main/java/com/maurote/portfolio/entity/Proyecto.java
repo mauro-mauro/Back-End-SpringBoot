@@ -1,12 +1,9 @@
 package com.maurote.portfolio.entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 
 @Entity
 public class Proyecto {
@@ -15,6 +12,7 @@ public class Proyecto {
     private long id;
     private String nombreProyecto;
     private String programa;
+    private String PaginaWeb;
     private String repositorioGit;
     private String anio;
     private String texto;
@@ -23,16 +21,6 @@ public class Proyecto {
     private String imagenId;
 
     public Proyecto() {
-    }
-
-    public Proyecto(String nombreProyecto, String programa, String repositorioGit, String anio, String texto, String imagenUrl, String imagenId) {
-        this.nombreProyecto = nombreProyecto;
-        this.programa = programa;
-        this.repositorioGit = repositorioGit;
-        this.anio = anio;
-        this.texto = texto;
-        this.imagenUrl = imagenUrl;
-        this.imagenId = imagenId;
     }
 
     public long getId() {
@@ -97,5 +85,13 @@ public class Proyecto {
 
     public void setImagenId(String imagenId) {
         this.imagenId = imagenId;
+    }
+
+    public String getPaginaWeb() {
+        return this.PaginaWeb;
+    }
+
+    public void setPaginaWeb(String PaginaWeb) {
+        this.PaginaWeb = PaginaWeb;
     }
 }

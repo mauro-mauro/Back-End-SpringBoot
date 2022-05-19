@@ -6,13 +6,11 @@ import java.util.Map;
 
 import com.maurote.portfolio.entity.DatoPersonal;
 import com.maurote.portfolio.entity.Mensaje;
-import com.maurote.portfolio.models.DatoPersonalDto;
 import com.maurote.portfolio.service.CloudinaryService;
 import com.maurote.portfolio.service.IDatoPersonalService;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 import org.cloudinary.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;

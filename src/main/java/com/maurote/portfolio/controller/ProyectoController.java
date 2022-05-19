@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -51,6 +50,7 @@ public class ProyectoController {
         Proyecto proyecto = new Proyecto();
         proyecto.setNombreProyecto(objetoJson.getString("nombreProyecto"));
         proyecto.setPrograma(objetoJson.getString("programa"));
+        proyecto.setPaginaWeb(objetoJson.getString("paginaWeb"));
         proyecto.setRepositorioGit(objetoJson.getString("repositorioGit"));
         proyecto.setAnio(objetoJson.getString("anio"));
         proyecto.setTexto(objetoJson.getString("texto"));
@@ -118,6 +118,7 @@ public class ProyectoController {
         Proyecto proyecto = proServ.getOne(idObjeto).get();
         proyecto.setNombreProyecto(objetoJson.getString("nombreProyecto"));
         proyecto.setPrograma(objetoJson.getString("programa"));
+        proyecto.setPaginaWeb(objetoJson.getString("paginaWeb"));
         proyecto.setTexto(objetoJson.getString("texto"));
         proyecto.setRepositorioGit(objetoJson.getString("repositorioGit"));
         proyecto.setAnio(objetoJson.getString("anio"));

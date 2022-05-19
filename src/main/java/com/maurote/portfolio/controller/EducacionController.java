@@ -9,7 +9,6 @@ import javax.imageio.ImageIO;
 
 import com.maurote.portfolio.entity.Educacion;
 import com.maurote.portfolio.entity.Mensaje;
-import com.maurote.portfolio.models.EducacionDto;
 import com.maurote.portfolio.service.CloudinaryService;
 import com.maurote.portfolio.service.IEducacionService;
 
@@ -23,7 +22,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;

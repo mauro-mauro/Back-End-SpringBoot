@@ -96,7 +96,7 @@ public class AuthController {
                 usuarioService.save(usuario);
                 return new ResponseEntity(new Mensaje("contraseña actualizada"), HttpStatus.OK);
             } else {
-                return new ResponseEntity(new Mensaje("contraseña incorrecta"), HttpStatus.BAD_REQUEST);
+                return new ResponseEntity(new Mensaje("contraseña incorrecta"), HttpStatus.CONFLICT);
             }
 
         } else {

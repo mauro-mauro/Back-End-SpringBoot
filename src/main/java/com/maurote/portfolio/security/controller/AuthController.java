@@ -1,16 +1,13 @@
 package com.maurote.portfolio.security.controller;
 
 import java.text.ParseException;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
 
 import javax.validation.Valid;
 
 import com.maurote.portfolio.entity.Mensaje;
+import com.maurote.portfolio.security.dto.CambioContrasena;
 import com.maurote.portfolio.security.dto.JwtDto;
 import com.maurote.portfolio.security.dto.LoginUsuario;
-import com.maurote.portfolio.security.dto.CambioContrasena;
 import com.maurote.portfolio.security.dto.NuevoUsuario;
 import com.maurote.portfolio.security.entity.Usuario;
 import com.maurote.portfolio.security.entity.UsuarioPrincipal;
@@ -33,8 +30,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.jsonwebtoken.Jwt;
-
 @RestController
 @RequestMapping("/auth")
 @CrossOrigin(origins = { "${crossorigin.origin}" })
@@ -54,21 +49,21 @@ public class AuthController {
     @PostMapping("/nuevo")
     public ResponseEntity<?> nuevo(@Valid @RequestBody NuevoUsuario nuevoUsuario, BindingResult bindingResult) {
         if (bindingResult.hasErrors())
-            return new ResponseEntity(new Mensaje("campos mal puestos o email invalido"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(new Mensaje("Campos mal puestos o email invalido"), HttpStatus.BAD_REQUEST);
         if (usuarioService.existsByNombreusuario(nuevoUsuario.getNombreUsuario()))
-            return new ResponseEntity(new Mensaje("ese nombre ya existe"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(new Mensaje("Ese nombre ya existe"), HttpStatus.BAD_REQUEST);
         if (usuarioService.existsByEmail(nuevoUsuario.getEmail()))
-            return new ResponseEntity(new Mensaje("ese email ya existe"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(new Mensaje("Ese email ya existe"), HttpStatus.BAD_REQUEST);
         Usuario usuario = new Usuario(nuevoUsuario.getNombre(), nuevoUsuario.getNombre(), nuevoUsuario.getEmail(),
                 passwordEncoder.encode(nuevoUsuario.getPassword()));
         usuarioService.save(usuario);
-        return new ResponseEntity(new Mensaje("usuario guardado"), HttpStatus.CREATED);
+        return new ResponseEntity(new Mensaje("Usuario guardado"), HttpStatus.CREATED);
     }
 
     @PostMapping("/login")
     public ResponseEntity<JwtDto> login(@Valid @RequestBody LoginUsuario loginUsuario, BindingResult bindingResult) {
         if (bindingResult.hasErrors())
-            return new ResponseEntity(new Mensaje("campos mal puestos"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(new Mensaje("Campos mal puestos"), HttpStatus.BAD_REQUEST);
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginUsuario.getNombreUsuario(), loginUsuario.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -82,7 +77,7 @@ public class AuthController {
             @Valid @RequestBody CambioContrasena cambioContrasena,
             BindingResult bindingResult) {
         if (bindingResult.hasErrors())
-            return new ResponseEntity(new Mensaje("campos mal puestos"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(new Mensaje("Campos mal puestos"), HttpStatus.BAD_REQUEST);
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Usuario usuario = usuarioService
@@ -94,13 +89,13 @@ public class AuthController {
                     ((UsuarioPrincipal) auth.getPrincipal()).getPassword())) {
                 usuario.setPassword(passwordEncoder.encode(cambioContrasena.getNewPassword()));
                 usuarioService.save(usuario);
-                return new ResponseEntity(new Mensaje("contraseña actualizada"), HttpStatus.OK);
+                return new ResponseEntity(new Mensaje("Contraseña actualizada"), HttpStatus.OK);
             } else {
-                return new ResponseEntity(new Mensaje("contraseña incorrecta"), HttpStatus.CONFLICT);
+                return new ResponseEntity(new Mensaje("Contraseña actual incorrecta"), HttpStatus.CONFLICT);
             }
 
         } else {
-            return new ResponseEntity(new Mensaje("el usuario no existe"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(new Mensaje("El usuario no existe"), HttpStatus.BAD_REQUEST);
         }
 
     }
